@@ -1,0 +1,23 @@
+{
+  "name": "micro-strptime.js",
+  "version": "0.0.1",
+  "description": "micro strptime implementation on JavaScript",
+  "main": "lib/micro-strptime.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "node test/node.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/cho45/micro-strptime.js.git"
+  },
+  "keywords": [
+    "strptime",
+    "Date",
+    "datetime"
+  ],
+  "author": "cho45",
+  "license": "BSD"
+}
