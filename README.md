@@ -18,11 +18,12 @@ Current supported format descripters:
  * %A : name of day of week (just ignored)
  * %B : name of month
  * %Y : four digits full year
- * %m : two digits month
- * %d : two digits date
- * %H : two digits hours
- * %M : two digits minutes
- * %S : two digits seconds
+ * %m : month
+ * %d : date
+ * %H : hours
+ * %M : minutes
+ * %S : seconds
+ * %s : milli seconds
  * %Z : timezone string like '+09:00', '-03:00', 'Z' or 'UTC'.
 
 
