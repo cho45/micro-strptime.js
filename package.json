@@ -1,6 +1,6 @@
 {
   "name": "micro-strptime.js",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "micro strptime implementation on JavaScript",
   "main": "lib/micro-strptime.js",
   "directories": {
@@ -19,5 +19,5 @@
     "datetime"
   ],
   "author": "cho45",
-  "license": "BSD"
+  "license": "MIT"
 }
