@@ -1,6 +1,6 @@
 {
   "name": "micro-strptime.js",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "micro strptime implementation on JavaScript",
   "main": "lib/micro-strptime.js",
   "directories": {
