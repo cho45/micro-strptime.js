@@ -1,5 +1,5 @@
 {
-  "name": "micro-strptime.js",
+  "name": "micro-strptime",
   "version": "0.2.0",
   "description": "micro strptime implementation on JavaScript",
   "main": "lib/micro-strptime.js",
