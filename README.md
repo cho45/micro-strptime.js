@@ -1,12 +1,12 @@
 micro-strptime.js
 =================
 
-micro strptime implementation on JavaScript
+Micro strptime implementation on JavaScript.
 
 SYNOPSYS
 ========
 
-    var strptime = require('../lib/micro-strptime.js').strptime;
+    var strptime = require('micro-strptime').strptime;
     strptime('05/May/2012:09:00:00 +0900', '%d/%B/%Y:%H:%M:%S %Z');
 
 FORMAT DESCRIPTERS
@@ -20,11 +20,14 @@ Current supported format descripters:
  * %Y : four digits full year
  * %m : month
  * %d : date
- * %H : hours
- * %M : minutes
- * %S : seconds
- * %s : milli seconds
+ * %H : hour
+ * %M : minute
+ * %S : second
+ * %s : milli second
  * %Z : timezone string like '+09:00', '-03:00', 'Z' or 'UTC'.
+ * %I : hour (12-hour colock)
+ * %p : AM or PM
+
 
 
 
