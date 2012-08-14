@@ -6,7 +6,7 @@ Micro strptime implementation on JavaScript.
 SYNOPSYS
 ========
 
-    var strptime = require('micro-strptime').strptime;
+    var strptime = require('micro-strptime.js').strptime;
     strptime('05/May/2012:09:00:00 +0900', '%d/%B/%Y:%H:%M:%S %Z');
 
 FORMAT DESCRIPTERS
