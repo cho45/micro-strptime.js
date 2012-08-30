@@ -1,12 +1,14 @@
 micro-strptime.js
 =================
 
+https://github.com/cho45/micro-strptime.js
+
 Micro strptime implementation on JavaScript.
 
 SYNOPSYS
 ========
 
-    var strptime = require('micro-strptime.js').strptime;
+    var strptime = require('micro-strptime').strptime;
     strptime('05/May/2012:09:00:00 +0900', '%d/%B/%Y:%H:%M:%S %Z');
 
 FORMAT DESCRIPTERS
@@ -29,5 +31,7 @@ Current supported format descripters:
  * %p : AM or PM
 
 
+LICENSE
+=======
 
-
+MIT: http://cho45.github.com/mit-license
