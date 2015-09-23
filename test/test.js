@@ -38,6 +38,7 @@ test([
 	{ string: '05/May/2012:09:00:00 +0900',                   format : '%d/%B/%Y:%H:%M:%S %Z' },
 	{ string: '05/5/2012:09:00:00 +0900',                     format : '%d/%m/%Y:%H:%M:%S %Z' },
 	{ string: 'Sat, 05 May 2012 09:00:00 +0900',              format : '%A, %d %B %Y %H:%M:%S %Z' },
+	{ string: 'Sat, 05 May 2012 09:00:00 +0900',              format : '%a, %d %b %Y %H:%M:%S %z' },
 	{ string: 'Sat May 05 2012 09:00:00 GMT+0900 (JST)',      format : '%A %B %d %Y %H:%M:%S GMT%Z' },
 	{ string: 'Saturday May 05 2012 09:00:00 GMT+0900 (JST)', format : '%A %B %d %Y %H:%M:%S GMT%Z' }
 ], Date.UTC(2012, 4, 5, 0, 0, 0));
