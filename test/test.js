@@ -7,22 +7,33 @@ assert.ok(strptime('2012', '%Y') instanceof Date);
 
 assert.throws(function () {
 	strptime('xxxx', '%Y-%m-%d');
-}, 'Failed to parse');
+}, {
+	message: 'Failed to parse'
+});
 
 assert.throws(function () {
 	strptime('xxxx');
-}, 'Missing format');
+}, {
+	message: 'Missing format'
+});
 
 assert.throws(function () {
 	strptime('2012', '%"unknown"');
-}, 'Unknown format descripter');
+}, {
+	message: 'Unknown format descripter: "unknown"'
+});
 
 function test (strings, date) {
 	strings.forEach(function (i) {
+		var actualDate;
+		var expectedDate = new Date(date);
 		try {
-			assert.equal(strptime(i.string, i.format).toString(), new Date(date).toString(), i.string);
+			actualDate = strptime(i.string, i.format);
+			assert.equal(actualDate.getTime(), expectedDate.getTime());
 		} catch (e) {
 			console.log("FAIL: %s: %s", i.format, i.string);
+			console.log("ACTUAL: " + actualDate.toISOString());
+			console.log("EXPECTED: " + expectedDate.toISOString()); 
 			console.log(e);
 		}
 	});
@@ -57,3 +68,9 @@ test([{ string: '2012-05-05 AM 01:00:00', format : '%Y-%m-%d %p %I:%M:%S' } ], D
 test([{ string: '2012-05-05 PM 12:00:00', format : '%Y-%m-%d %p %I:%M:%S' } ], Date.UTC(2012, 4, 5, 12, 0, 0) );
 test([{ string: '2012-05-05 PM 12:01:00', format : '%Y-%m-%d %p %I:%M:%S' } ], Date.UTC(2012, 4, 5, 12, 1, 0) );
 test([{ string: '2012-05-05 PM 01:00:00', format : '%Y-%m-%d %p %I:%M:%S' } ], Date.UTC(2012, 4, 5, 13, 0, 0) );
+
+// Leap year
+// https://github.com/cho45/micro-strptime.js/issues/2
+test([
+	{ string: '29/Feb/2016:09:00:00 +0700', format : '%d/%B/%Y:%H:%M:%S %Z' }
+], new Date("2016-02-29T02:00:00Z"));
