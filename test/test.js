@@ -3,27 +3,46 @@
 var assert = require('assert');
 var strptime = require('../lib/micro-strptime.js').strptime;
 
+var anyErrors = false;
+
 assert.ok(strptime('2012', '%Y') instanceof Date);
 
-assert.throws(function () {
+function assertThrows(callback, message){
+	try{
+		callback();
+	}catch(error){
+		assert.ok(error);
+		assert.equal(error.message, message);
+		return;
+	}
+	throw Error("Callback didn't throw any error.");
+}
+
+assertThrows(function () {
 	strptime('xxxx', '%Y-%m-%d');
 }, 'Failed to parse');
 
-assert.throws(function () {
+assertThrows(function () {
 	strptime('xxxx');
 }, 'Missing format');
 
-assert.throws(function () {
+assertThrows(function () {
 	strptime('2012', '%"unknown"');
-}, 'Unknown format descripter');
+}, 'Unknown format descripter: "unknown"');
 
 function test (strings, date) {
 	strings.forEach(function (i) {
+		var actualDate;
+		var expectedDate = new Date(date);
 		try {
-			assert.equal(strptime(i.string, i.format).toString(), new Date(date).toString(), i.string);
+			actualDate = strptime(i.string, i.format);
+			assert.equal(String(actualDate), String(expectedDate));
 		} catch (e) {
 			console.log("FAIL: %s: %s", i.format, i.string);
+			console.log("ACTUAL: " + String(actualDate));
+			console.log("EXPECTED: " + String(expectedDate)); 
 			console.log(e);
+			anyErrors = true;
 		}
 	});
 }
@@ -57,3 +76,17 @@ test([{ string: '2012-05-05 AM 01:00:00', format : '%Y-%m-%d %p %I:%M:%S' } ], D
 test([{ string: '2012-05-05 PM 12:00:00', format : '%Y-%m-%d %p %I:%M:%S' } ], Date.UTC(2012, 4, 5, 12, 0, 0) );
 test([{ string: '2012-05-05 PM 12:01:00', format : '%Y-%m-%d %p %I:%M:%S' } ], Date.UTC(2012, 4, 5, 12, 1, 0) );
 test([{ string: '2012-05-05 PM 01:00:00', format : '%Y-%m-%d %p %I:%M:%S' } ], Date.UTC(2012, 4, 5, 13, 0, 0) );
+
+// Leap year
+// https://github.com/cho45/micro-strptime.js/issues/2
+test([
+	{ string: '29/Feb/2016:09:00:00 +0700', format : '%d/%B/%Y:%H:%M:%S %Z' }
+], new Date("2016-02-29T02:00:00Z"));
+
+if(anyErrors){
+	console.log("Tests failed.");
+	process.exit(1);
+}else{
+	console.log("All tests passed.");
+	process.exit(0);
+}
