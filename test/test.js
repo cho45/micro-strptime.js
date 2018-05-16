@@ -3,25 +3,32 @@
 var assert = require('assert');
 var strptime = require('../lib/micro-strptime.js').strptime;
 
+var anyErrors = false;
+
 assert.ok(strptime('2012', '%Y') instanceof Date);
 
-assert.throws(function () {
+function assertThrows(callback, message){
+	try{
+		callback();
+	}catch(error){
+		assert.ok(error);
+		assert.equal(error.message, message);
+		return;
+	}
+	throw Error("Callback didn't throw any error.");
+}
+
+assertThrows(function () {
 	strptime('xxxx', '%Y-%m-%d');
-}, {
-	message: 'Failed to parse'
-});
+}, 'Failed to parse');
 
-assert.throws(function () {
+assertThrows(function () {
 	strptime('xxxx');
-}, {
-	message: 'Missing format'
-});
+}, 'Missing format');
 
-assert.throws(function () {
+assertThrows(function () {
 	strptime('2012', '%"unknown"');
-}, {
-	message: 'Unknown format descripter: "unknown"'
-});
+}, 'Unknown format descripter: "unknown"');
 
 function test (strings, date) {
 	strings.forEach(function (i) {
@@ -29,12 +36,13 @@ function test (strings, date) {
 		var expectedDate = new Date(date);
 		try {
 			actualDate = strptime(i.string, i.format);
-			assert.equal(actualDate.getTime(), expectedDate.getTime());
+			assert.equal(String(actualDate), String(expectedDate));
 		} catch (e) {
 			console.log("FAIL: %s: %s", i.format, i.string);
-			console.log("ACTUAL: " + actualDate.toISOString());
-			console.log("EXPECTED: " + expectedDate.toISOString()); 
+			console.log("ACTUAL: " + String(actualDate));
+			console.log("EXPECTED: " + String(expectedDate)); 
 			console.log(e);
+			anyErrors = true;
 		}
 	});
 }
@@ -74,3 +82,11 @@ test([{ string: '2012-05-05 PM 01:00:00', format : '%Y-%m-%d %p %I:%M:%S' } ], D
 test([
 	{ string: '29/Feb/2016:09:00:00 +0700', format : '%d/%B/%Y:%H:%M:%S %Z' }
 ], new Date("2016-02-29T02:00:00Z"));
+
+if(anyErrors){
+	console.log("Tests failed.");
+	process.exit(1);
+}else{
+	console.log("All tests passed.");
+	process.exit(0);
+}
