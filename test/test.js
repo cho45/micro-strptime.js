@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
-var assert = require('assert');
-var strptime = require('../lib/micro-strptime.js').strptime;
+import assert from 'assert';
+import { strptime } from '../lib/micro-strptime.js';
 
 var anyErrors = false;
 
