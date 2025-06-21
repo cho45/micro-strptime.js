@@ -11,7 +11,7 @@ test('strptime returns Date', () => {
 test('strptime throws on parse error', () => {
   assert.throws(() => strptime('xxxx', '%Y-%m-%d'), /Failed to parse/);
   assert.throws(() => strptime('xxxx'), /Missing format/);
-  assert.throws(() => strptime('2012', '%"unknown"'), /Unknown format descripter: "unknown"/);
+  assert.throws(() => strptime('2012', '%"unknown"'), /Unknown format descriptor: "unknown"/);
 });
 
 function testDate(strings, date) {
